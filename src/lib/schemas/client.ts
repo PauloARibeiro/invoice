@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import PhoneSchema from './shared/phone';
-import PhotoSchema from './shared/photo';
 import EmailSchema from './shared/email';
 
 export default () =>
@@ -9,5 +8,5 @@ export default () =>
 		lastName: z.string().nonempty().trim(),
 		email: EmailSchema(),
 		phone: PhoneSchema(),
-		photo: PhotoSchema()
+		photo: z.any()
 	});

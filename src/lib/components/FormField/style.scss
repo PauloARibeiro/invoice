@@ -1,0 +1,27 @@
+$border-radius: 1.2rem;
+
+.form-field {
+	background-color: var(--white);
+	padding: 0.5rem 3.3rem 0.5rem 1.2rem;
+	border-radius: $border-radius;
+	border: 0.1rem solid var(--c-gray-4);
+	box-shadow: 0 0 0 0.8rem rgba(var(--c-blue-rgb), 0);
+	transition: border 0.1s, box-shadow 0.1s;
+	width: 100%;
+
+	&:focus {
+		border-color: var(--c-blue);
+		box-shadow: 0 0 0 0.3rem rgba(var(--c-teal-rgb), 0.2);
+		transition: border 0.2s ease-in, box-shadow 0.2s ease-in;
+	}
+
+	&.errors {
+		border-color: var(--c-red);
+		background-color: rgba(var(--c-red-rgb), 0.03);
+
+		&:focus {
+			background-color: inherit;
+			box-shadow: 0 0 0 0.3rem rgba(var(--c-red-rgb), 0.1);
+		}
+	}
+}

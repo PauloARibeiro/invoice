@@ -13,10 +13,18 @@ export const load: PageServerLoad = async ({ parent }) => {
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-		const form = await superValidate(request, ClientSchema());
+		const formData = await request.formData();
+		const form = await superValidate(formData, ClientSchema());
 
 		if (!form.valid) {
 			return fail(400, { form });
+		}
+
+		const file = formData.get('photo');
+
+		if (file instanceof File) {
+			// Do something with the file.
+			console.log(file);
 		}
 
 		// TODO: Do something with the validated data
