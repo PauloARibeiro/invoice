@@ -22,7 +22,6 @@
 		"@types/jsonwebtoken": "^9.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
-		"autoprefixer": "^10.4.14",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.26.0",
@@ -44,9 +43,11 @@
 	"dependencies": {
 		"@prisma/client": "^4.13.0",
 		"bcryptjs": "^2.4.3",
+		"cropperjs": "^1.5.13",
 		"crypto": "^1.0.1",
 		"svelte-easy-crop": "^2.0.1",
 		"svelte-feather-icons": "^4.0.0",
+		"svelte-modals": "^1.2.1",
 		"zod": "^3.21.4"
 	},
 	"prisma": {
