@@ -1,0 +1,100 @@
+<script>
+	import { loader } from './loader';
+	import { fade, scale } from 'svelte/transition';
+</script>
+
+{#if $loader.loading}
+	<section in:fade={{ duration: 100 }} out:fade={{ duration: 50 }}>
+		<div class="backdrop" />
+		<div class="wrapper" in:scale out:fade={{ duration: 50 }}>
+			<span class="loader" />
+			<h5>{@html $loader.message ?? 'Loading'}</h5>
+		</div>
+	</section>
+{/if}
+
+<style lang="scss" scoped>
+	section {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 2.4rem;
+	}
+
+	.wrapper {
+		background-color: rgba(var(--c-black-rgb), 0.3);
+		backdrop-filter: blur(0.2rem);
+		min-width: 18rem;
+		border-radius: 1.4rem;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		padding: 1.4rem 2rem 2rem;
+		gap: 1.4rem;
+	}
+
+	.backdrop {
+		backdrop-filter: blur(0.2rem);
+	}
+
+	h5 {
+		z-index: 2;
+		color: var(--c-white);
+		font-size: 1.8rem;
+		margin: 0;
+	}
+
+	.loader {
+		width: 48px;
+		height: 40px;
+		margin-top: 30px;
+		display: inline-block;
+		position: relative;
+		background: #fff;
+		border-radius: 15% 15% 35% 35%;
+	}
+	.loader::after {
+		content: '';
+		box-sizing: border-box;
+		position: absolute;
+		left: 45px;
+		top: 8px;
+		border: 4px solid #fff;
+		width: 16px;
+		height: 20px;
+		border-radius: 0 4px 4px 0;
+	}
+	.loader::before {
+		content: '';
+		position: absolute;
+		width: 1px;
+		height: 10px;
+		color: #fff;
+		top: -15px;
+		left: 11px;
+		box-sizing: border-box;
+		animation: animloader 1s ease infinite;
+	}
+
+	@keyframes animloader {
+		0% {
+			box-shadow: 2px 0px rgba(255, 255, 255, 0), 12px 0px rgba(255, 255, 255, 0.3),
+				20px 0px rgba(255, 255, 255, 0);
+		}
+		50% {
+			box-shadow: 2px -5px rgba(255, 255, 255, 0.5), 12px -3px rgba(255, 255, 255, 0.5),
+				20px -2px rgba(255, 255, 255, 0.6);
+		}
+		100% {
+			box-shadow: 2px -8px rgba(255, 255, 255, 0), 12px -5px rgba(255, 255, 255, 0),
+				20px -5px rgba(255, 255, 255, 0);
+		}
+	}
+</style>

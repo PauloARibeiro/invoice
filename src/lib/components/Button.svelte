@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let type: 'button' | 'submit' | 'reset' = 'submit';
-	export let style: 'primary' | 'cancel' = 'primary';
+	export let style: 'primary' | 'cancel' | 'error' = 'primary';
 	export let onClick: (event: MouseEvent) => void = () => {};
 
 	export let icon: ConstructorOfATypedSvelteComponent | undefined = undefined;
@@ -26,6 +26,11 @@
 
 	.primary {
 		background: var(--c-blue);
+		color: var(--c-white);
+	}
+
+	.error {
+		background: var(--c-red);
 		color: var(--c-white);
 	}
 

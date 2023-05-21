@@ -25,8 +25,8 @@
 		cropper = new Cropper(imageEle, {
 			viewMode: 1,
 			dragMode: 'move',
-			aspectRatio: 16 / 9,
-			autoCropArea: 0.65,
+			aspectRatio: 9 / 9,
+			autoCropArea: 0.4,
 			restore: false,
 			guides: false,
 			center: false,
@@ -44,15 +44,15 @@
 		});
 	});
 
-	onDestroy(() => {
-		if (cropper) {
-			cropper.destroy();
-		}
+	// onDestroy(() => {
+	// 	if (cropper) {
+	// 		cropper.destroy();
+	// 	}
 
-		if (imageEle) {
-			imageEle.src = '';
-		}
-	});
+	// 	if (imageEle) {
+	// 		imageEle.src = '';
+	// 	}
+	// });
 
 	function onClose() {
 		onConfirm(cropper?.getCroppedCanvas());

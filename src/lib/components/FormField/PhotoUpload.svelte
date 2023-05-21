@@ -11,8 +11,11 @@
 	import Wrapper from './_Wrapper.svelte';
 
 	import ImageUploadModal from '../Modals/ImageUploadModal.svelte';
+	import { UserIcon } from 'svelte-feather-icons';
 
 	let file: File | null = null;
+	let croppedImgSrc: string | undefined;
+	let inputRef: HTMLInputElement | undefined;
 
 	function onFileSelected(e: any) {
 		if (!e.target.files[0].type.startsWith('image/')) return;
@@ -43,17 +46,91 @@
 		canvas?.toBlob((blob) => {
 			value = blob;
 		});
+
+		croppedImgSrc = canvas?.toDataURL();
+	}
+
+	function triggerFileInput() {
+		inputRef?.click();
 	}
 </script>
 
 <Wrapper>
-	<Label {id} {label} />
-	<input type="file" name={id} {id} on:change={onFileSelected} />
+	<section>
+		<!-- <Label {id} {label} /> -->
+		<main>
+			<div class="main-wrapper">
+				<button type="button" class="placeholder" on:click={triggerFileInput}>
+					{#if croppedImgSrc}
+						<img src={croppedImgSrc} alt="user" />
+					{/if}
+				</button>
+				<!-- {#if croppedImgSrc}
+					<img src={croppedImgSrc} alt="user" />
+				{:else}
+					<div class="placeholder" on:click={triggerFileInput} />
+				{/if} -->
+				<!-- TODO future desktop -->
+				<!-- <button class="edit-btn" type="button" on:click={openEditModal}>edit</button> -->
+			</div>
+		</main>
 
-	<button type="button" on:click={openEditModal}>edit</button>
+		<input bind:this={inputRef} hidden type="file" name={id} {id} on:change={onFileSelected} />
+	</section>
 	<Error {errors} />
 </Wrapper>
 
 <style lang="scss" scoped>
 	@import './style.scss';
+
+	section {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		position: relative;
+	}
+
+	main {
+		position: relative;
+
+		.main-wrapper {
+			overflow: hidden;
+		}
+
+		.placeholder {
+			width: 15rem;
+			height: 15rem;
+			background-color: var(--c-gray-5);
+			border-radius: 50%;
+			position: relative;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: 0;
+			padding: 0;
+			overflow: hidden;
+
+			img {
+				object-fit: fill;
+				width: 100%;
+				height: 100%;
+			}
+			// border: 0.2rem solid var(--c-black);
+
+			svg {
+				position: absolute;
+			}
+		}
+
+		// TODO future desktop
+		// .edit-btn {
+		// 	position: absolute;
+		// 	bottom: 0;
+		// 	left: 50%;
+		// 	transform: translateX(-50%);
+		// 	border: 0;
+		// 	// background-color: ;
+		// }
+	}
 </style>

@@ -6,6 +6,7 @@
 	export let value = '';
 	export let type: 'text' | 'email' | 'tel' = 'text';
 	export let fixedLabel: undefined | string = undefined;
+	export let disabled = false;
 
 	import { scale } from 'svelte/transition';
 	import { XCircleIcon } from 'svelte-feather-icons';
@@ -47,6 +48,7 @@
 			autocomplete="off"
 			{id}
 			{placeholder}
+			{disabled}
 			name={id}
 			use:typeAction
 			bind:value
@@ -55,7 +57,12 @@
 		/>
 
 		{#if value.length > 0 && isFocused}
-			<button tabindex="-1" on:click={resetValue} transition:scale={{ duration: 200, start: 0 }}>
+			<button
+				type="button"
+				tabindex="-1"
+				on:click={resetValue}
+				transition:scale={{ duration: 200, start: 0 }}
+			>
 				<XCircleIcon size="20" strokeWidth={1.4} />
 			</button>
 		{/if}
@@ -93,6 +100,11 @@
 			&.fixedLabel {
 				border-radius: 0 $border-radius $border-radius 0;
 			}
+		}
+
+		:disabled {
+			background-color: var(--c-gray-5);
+			color: var(--c-gray-1);
 		}
 
 		button {

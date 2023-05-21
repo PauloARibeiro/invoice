@@ -1,6 +1,7 @@
 <script>
 	import 'cropperjs/dist/cropper.css';
 	import { Modals, closeModal } from 'svelte-modals';
+	import Loader from '$lib/components/Loader/Loader.svelte';
 </script>
 
 <div style="padding: 2rem;">
@@ -10,6 +11,8 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div slot="backdrop" class="backdrop" on:click={closeModal} />
 </Modals>
+
+<Loader />
 
 <style lang="scss" global>
 	@import '$lib/scss/app.scss';
