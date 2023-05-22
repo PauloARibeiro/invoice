@@ -1,21 +1,36 @@
 <script>
-	import { loader } from './loader';
+	import { onMount, onDestroy } from 'svelte';
+	import Loader from './loader';
 	import { fade, scale } from 'svelte/transition';
+	import { browser } from '$app/environment';
+
+	onMount(() => {
+		if (browser) {
+			// @ts-ignore
+			document.querySelector('body').style.overflowY = 'hidden';
+		}
+	});
+
+	onDestroy(() => {
+		if (browser) {
+			// @ts-ignore
+			document.querySelector('body').style.overflowY = 'auto';
+		}
+	});
 </script>
 
-{#if $loader.loading}
+{#if $Loader.isLoading}
 	<section in:fade={{ duration: 100 }} out:fade={{ duration: 50 }}>
-		<div class="backdrop" />
 		<div class="wrapper" in:scale out:fade={{ duration: 50 }}>
 			<span class="loader" />
-			<h5>{@html $loader.message ?? 'Loading'}</h5>
+			<h5>{@html $Loader.message ?? 'Loading'}</h5>
 		</div>
 	</section>
 {/if}
 
 <style lang="scss" scoped>
 	section {
-		position: absolute;
+		position: fixed;
 		left: 0;
 		top: 0;
 		width: 100%;
@@ -25,6 +40,8 @@
 		align-items: center;
 		flex-direction: column;
 		padding: 2.4rem;
+		backdrop-filter: blur(0.2rem);
+		background-color: rgba(var(--c-black-rgb), 0.2);
 	}
 
 	.wrapper {
@@ -38,10 +55,6 @@
 		flex-direction: column;
 		padding: 1.4rem 2rem 2rem;
 		gap: 1.4rem;
-	}
-
-	.backdrop {
-		backdrop-filter: blur(0.2rem);
 	}
 
 	h5 {

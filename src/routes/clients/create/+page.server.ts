@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ parent }) => {
 	return { clientForm };
 };
 
-function delay(ms) {
+function delay(ms: number) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 

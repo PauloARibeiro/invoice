@@ -12,6 +12,7 @@
 
 	import ImageUploadModal from '../Modals/ImageUploadModal.svelte';
 	import { UserIcon } from 'svelte-feather-icons';
+	import Loader from '../Loader/loader';
 
 	let file: File | null = null;
 	let croppedImgSrc: string | undefined;
@@ -30,6 +31,8 @@
 
 		const reader = new FileReader();
 
+		Loader.set(true, 'Uploading...');
+
 		reader.onload = (e) => {
 			if (!file || !e.target) return;
 
@@ -37,17 +40,20 @@
 				imageSrc: e.target.result as string,
 				onConfirm
 			});
+
+			Loader.reset();
 		};
 
 		reader.readAsDataURL(file);
 	}
 
-	function onConfirm(canvas: HTMLCanvasElement | undefined) {
-		canvas?.toBlob((blob) => {
-			value = blob;
-		});
+	function onConfirm(canvas: any | undefined) {
+		// canvas?.toBlob((blob) => {
+		// 	value = blob;
+		// });
 
-		croppedImgSrc = canvas?.toDataURL();
+		croppedImgSrc = canvas;
+		// croppedImgSrc = canvas?.toDataURL();
 	}
 
 	function triggerFileInput() {

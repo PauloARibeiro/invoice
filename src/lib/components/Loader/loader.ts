@@ -1,35 +1,34 @@
 import { writable } from 'svelte/store';
 
-export const loader = writable({
-	loading: false,
-	message: 'Loading'
-});
-
-function setLoaderState(loading: boolean, message: string) {
-	loader.update(() => {
-		return {
-			loading,
-			message
-		};
+function createLoaderStore() {
+	const { subscribe, update } = writable({
+		isLoading: false,
+		message: 'Loading'
 	});
+
+	const set = (isLoading: boolean, message: string) => {
+		update(() => ({ isLoading, message }));
+	};
+
+	const reset = () => {
+		update(() => ({ isLoading: false, message: '' }));
+	};
+
+	const setMessage = (message: string) => {
+		update((state) => ({ ...state, message }));
+	};
+
+	const setIsLoading = (isLoading: boolean) => {
+		update((state) => ({ ...state, isLoading }));
+	};
+
+	return {
+		subscribe,
+		setIsLoading,
+		setMessage,
+		set,
+		reset
+	};
 }
 
-function setLoaderMessage(message: string) {
-	loader.update((state) => {
-		return {
-			loading: state.loading,
-			message
-		};
-	});
-}
-
-function setLoaderLoading(loading: boolean) {
-	loader.update((state) => {
-		return {
-			loading,
-			message: state.message
-		};
-	});
-}
-
-export { setLoaderLoading, setLoaderMessage, setLoaderState };
+export default createLoaderStore();

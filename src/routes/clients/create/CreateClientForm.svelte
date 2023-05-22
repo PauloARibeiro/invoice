@@ -11,25 +11,23 @@
 	import Button from '$lib/components/Button.svelte';
 
 	import { XCircleIcon } from 'svelte-feather-icons';
-	import { setLoaderState } from '$lib/components/Loader/loader';
+	import Loader from '$lib/components/Loader/loader';
 
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
 	export let data: Validation<ClientSchemaType>;
 	export let options: any[] = [];
 
-	const { form, errors, delayed, enhance, submitting, capture } = superForm(data, {
+	const { form, errors, delayed, enhance } = superForm(data, {
 		validators: ClientSchema
 	});
 
 	delayed.subscribe((state) => {
-		setLoaderState(state, `Creating new client <b>"${$form.firstName}"</b>`);
+		Loader.set(state, `Creating new client <b>"${$form.firstName}"</b>`);
 	});
 
 	// submitting.subscribe((state) => (isSubmitting = state));
 </script>
-
-<SuperDebug data={$form} />
 
 <form method="POST" use:enhance>
 	<PhotoUpload id="photo" label="Photo" value={$form.photo} />
