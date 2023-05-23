@@ -4,8 +4,8 @@
 	import { getCroppedImg } from './cropper';
 
 	// import Cropper from 'cropperjs';
-	import Cropper from 'svelte-easy-crop';
-	import Loader from '../Loader/loader';
+	// import Cropper from 'svelte-easy-crop';
+	import Loader from '../../stores/loader';
 	// import type CropperType from 'cropperjs';
 
 	// provided by Modals
@@ -14,7 +14,7 @@
 	export let onConfirm: (canvas: any | undefined) => void;
 
 	// let cropper: CropperType | null = null;
-	let cropper: CropperType | null = null;
+	// let cropper: CropperType | null = null;
 	let imageEle: HTMLImageElement | null = null;
 
 	let pixelCrop: any;
@@ -22,9 +22,9 @@
 	onMount(() => {
 		if (!imageEle) return;
 
-		if (cropper !== null) {
-			cropper.destroy();
-		}
+		// if (cropper !== null) {
+		// 	cropper.destroy();
+		// }
 
 		imageEle.src = imageSrc;
 
@@ -82,13 +82,13 @@
 {#if isOpen}
 	<div role="dialog" class="modal">
 		<div class="contents">
-			<Cropper
+			<!-- <Cropper
 				aspect={1}
 				image={imageSrc}
 				restrictPosition={true}
 				maxZoom={10}
 				on:cropcomplete={previewCrop}
-			/>
+			/> -->
 			<!-- <img alt="user" bind:this={imageEle} />
 			<div class="actions">
 				<button on:click={onClose}>OK</button>
@@ -101,7 +101,7 @@
 	</div>
 {/if}
 
-<style>
+<!-- <style>
 	.modal {
 		position: fixed;
 		top: 0;
@@ -145,4 +145,4 @@
 		left: 0;
 		width: 100%;
 	}
-</style>
+</style> -->

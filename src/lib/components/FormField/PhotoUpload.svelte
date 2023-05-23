@@ -7,12 +7,12 @@
 	import { openModal } from 'svelte-modals';
 
 	import Error from './_Error.svelte';
-	import Label from './_Label.svelte';
+	// import Label from './_Label.svelte';
 	import Wrapper from './_Wrapper.svelte';
 
 	import ImageUploadModal from '../Modals/ImageUploadModal.svelte';
-	import { UserIcon } from 'svelte-feather-icons';
-	import Loader from '../Loader/loader';
+	// import { UserIcon } from 'svelte-feather-icons';
+	import Loader from '../../stores/loader';
 
 	let file: File | null = null;
 	let croppedImgSrc: string | undefined;
@@ -57,7 +57,7 @@
 	}
 
 	function triggerFileInput() {
-		inputRef?.click();
+		// inputRef?.click();
 	}
 </script>
 
@@ -71,11 +71,7 @@
 						<img src={croppedImgSrc} alt="user" />
 					{/if}
 				</button>
-				<!-- {#if croppedImgSrc}
-					<img src={croppedImgSrc} alt="user" />
-				{:else}
-					<div class="placeholder" on:click={triggerFileInput} />
-				{/if} -->
+
 				<!-- TODO future desktop -->
 				<!-- <button class="edit-btn" type="button" on:click={openEditModal}>edit</button> -->
 			</div>

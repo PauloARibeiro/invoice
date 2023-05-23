@@ -1,12 +1,19 @@
 <script lang="ts">
 	export let type: 'button' | 'submit' | 'reset' = 'submit';
 	export let style: 'primary' | 'cancel' | 'error' = 'primary';
+	export let fullWidth: boolean = false;
 	export let onClick: (event: MouseEvent) => void = () => {};
 
 	export let icon: ConstructorOfATypedSvelteComponent | undefined = undefined;
+
+	function getWidth() {
+		return fullWidth ? 'width: 100%;' : '';
+	}
+
+	const inlineStyle = `${getWidth()}`;
 </script>
 
-<button {type} on:click={onClick} class={style}>
+<button style={inlineStyle} {type} on:click={onClick} class={style}>
 	<svelte:component this={icon} size="20" strokeWidth={1.4} />
 	<slot />
 </button>

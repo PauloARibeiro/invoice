@@ -11,7 +11,7 @@
 	import Button from '$lib/components/Button.svelte';
 
 	import { XCircleIcon } from 'svelte-feather-icons';
-	import Loader from '$lib/components/Loader/loader';
+	import Loader from '$lib/stores/loader';
 
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 

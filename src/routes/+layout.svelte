@@ -1,7 +1,7 @@
 <script>
-	import 'cropperjs/dist/cropper.css';
 	import { Modals, closeModal } from 'svelte-modals';
-	import Loader from '$lib/components/Loader/Loader.svelte';
+	import Loader from '$lib/components/Loader.svelte';
+	import Alert from '$lib/components/Alert.svelte';
 </script>
 
 <div style="padding: 2rem;">
@@ -13,6 +13,7 @@
 </Modals>
 
 <Loader />
+<Alert />
 
 <style lang="scss" global>
 	@import '$lib/scss/app.scss';

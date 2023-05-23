@@ -1,6 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import Loader from './loader';
+	import Loader from '../stores/loader';
 	import { fade, scale } from 'svelte/transition';
 	import { browser } from '$app/environment';
 
@@ -20,8 +20,8 @@
 </script>
 
 {#if $Loader.isLoading}
-	<section in:fade={{ duration: 100 }} out:fade={{ duration: 50 }}>
-		<div class="wrapper" in:scale out:fade={{ duration: 50 }}>
+	<section transition:fade={{ duration: 150 }}>
+		<div class="wrapper" transition:scale={{ duration: 300 }}>
 			<span class="loader" />
 			<h5>{@html $Loader.message ?? 'Loading'}</h5>
 		</div>
