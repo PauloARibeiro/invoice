@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Alert from '$lib/stores/alert';
 	import Loader from '$lib/stores/loader';
+	import Toaster from '$lib/stores/toaster';
+
+	import CancelIcon from '$lib/components/icons/CancelIcon.svelte';
 
 	function testAlert() {
 		Alert.set({
@@ -38,3 +41,13 @@
 		}, 2000);
 	}}>test loader</button
 >
+
+<button
+	on:click={() =>
+		Toaster.notify(
+			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo magnam ea cum enim, quam ullam eos a minus aliquam iusto quae culpa sunt debitis dolores?',
+			CancelIcon
+		)}>open toaster</button
+>
+
+<button on:click={() => Toaster.notify('Client foi criado', CancelIcon)}>open toaster</button>

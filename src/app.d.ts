@@ -12,6 +12,13 @@ declare global {
 		interface Locals {
 			user: User | null;
 		}
+
+		interface PageData {
+			flash?: {
+				type: 'success' | 'error';
+				messsage: string;
+			};
+		}
 	}
 
 	// eslint-disable-next-line no-var

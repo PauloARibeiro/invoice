@@ -26,6 +26,8 @@
 		Loader.set(state, `Creating new client <b>"${$form.firstName}"</b>`);
 	});
 
+	let disabled = false;
+
 	// submitting.subscribe((state) => (isSubmitting = state));
 </script>
 
@@ -63,7 +65,10 @@
 
 	<div style="display: flex; margin-top: 2rem; gap: 1rem">
 		<!-- <Button type="reset" style="cancel">Cancel</Button>
-		<Button type="reset" style="error">Cancel</Button> -->
+		<Button type="reset" style="error">Cancel</Button>
 		<Button icon={XCircleIcon}>Create User</Button>
+		<Button icon={XCircleIcon} style="warning">Create User</Button> -->
+		<Button disabled icon={XCircleIcon}>Create User</Button>
+		<!-- <Button icon={XCircleIcon} {disabled} style="warning">Create User</Button> -->
 	</div>
 </form>

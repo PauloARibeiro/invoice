@@ -3,10 +3,15 @@
 	import Alert from '../stores/alert';
 
 	import Button from './Button.svelte';
+	import CancelIcon from './Icons/CancelIcon.svelte';
 
 	function closeModal() {
 		if ($Alert.onCancel) {
 			$Alert.onCancel();
+		}
+
+		if ($Alert.closeOnCancel) {
+			Alert.reset();
 		}
 	}
 
@@ -28,7 +33,8 @@
 	<div class="alert" transition:fade={{ duration: 100 }}>
 		<button class="backdrop" on:click={closeModal} />
 		<main transition:scale={{ duration: 250 }}>
-			<span>icon vai aqui</span>
+			<!-- <span>icon vai aqui</span> -->
+			<!-- <CancelIcon /> -->
 			<h5>{$Alert.title}</h5>
 			<span>{$Alert.message}</span>
 			<footer>
@@ -51,7 +57,7 @@
 		align-items: center;
 		flex-direction: column;
 		padding: 2.4rem;
-		backdrop-filter: blur(0.2rem);
+		backdrop-filter: var(--overlay-blur);
 		background-color: rgba(var(--c-black-rgb), 0.2);
 	}
 
@@ -60,11 +66,11 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
+		background-color: transparent;
 	}
 
 	main {
-		background-color: rgba(var(--c-white-rgb), 0.8);
-		backdrop-filter: blur(0.2rem);
+		background-color: rgba(var(--c-white-rgb), 1);
 		width: 30rem;
 		padding: 2rem;
 		border-radius: 1.4rem;
@@ -79,7 +85,7 @@
 			font-size: 2.8rem;
 			font-weight: 700;
 			text-align: center;
-			margin-top: 2rem;
+			// margin-top: 2rem;
 		}
 
 		span {

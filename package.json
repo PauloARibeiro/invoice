@@ -44,8 +44,11 @@
 		"@prisma/client": "^4.13.0",
 		"bcryptjs": "^2.4.3",
 		"crypto": "^1.0.1",
+		"device-detector-js": "^3.0.3",
 		"svelte-feather-icons": "^4.0.0",
+		"svelte-hammer": "^0.1.7",
 		"svelte-modals": "^1.2.1",
+		"sveltekit-flash-message": "^0.11.3",
 		"zod": "^3.21.4"
 	},
 	"prisma": {

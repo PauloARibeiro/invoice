@@ -2,6 +2,7 @@
 	import { Modals, closeModal } from 'svelte-modals';
 	import Loader from '$lib/components/Loader.svelte';
 	import Alert from '$lib/components/Alert.svelte';
+	import Toaster from '$lib/components/Toaster.svelte';
 </script>
 
 <div style="padding: 2rem;">
@@ -14,6 +15,7 @@
 
 <Loader />
 <Alert />
+<Toaster />
 
 <style lang="scss" global>
 	@import '$lib/scss/app.scss';
