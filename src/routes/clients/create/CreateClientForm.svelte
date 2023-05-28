@@ -12,6 +12,7 @@
 
 	import { XCircleIcon } from 'svelte-feather-icons';
 	import Loader from '$lib/stores/loader';
+	import Alert from '$lib/stores/alert';
 
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 
@@ -28,11 +29,19 @@
 
 	let disabled = false;
 
+	function onPlaceholderClick() {
+		Alert.set({
+			isOpen: true,
+			message: 'Feature is not yet implemented.',
+			title: 'Not Available'
+		});
+	}
+
 	// submitting.subscribe((state) => (isSubmitting = state));
 </script>
 
 <form method="POST" use:enhance>
-	<PhotoUpload id="photo" label="Photo" value={$form.photo} />
+	<PhotoUpload {onPlaceholderClick} id="photo" label="Photo" value={$form.photo} />
 
 	<Input
 		type="text"

@@ -22,9 +22,6 @@
 </button>
 
 <style lang="scss" scoped>
-	// @mixin span-color($color) {
-	// }
-
 	@mixin style($bg, $color) {
 		background: var($bg);
 		color: var($color);

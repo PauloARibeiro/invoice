@@ -14,6 +14,8 @@
 	// import { UserIcon } from 'svelte-feather-icons';
 	import Loader from '../../stores/loader';
 
+	export let onPlaceholderClick: () => void = () => {};
+
 	let file: File | null = null;
 	let croppedImgSrc: string | undefined;
 	let inputRef: HTMLInputElement | undefined;
@@ -57,6 +59,7 @@
 	}
 
 	function triggerFileInput() {
+		onPlaceholderClick();
 		// inputRef?.click();
 	}
 </script>

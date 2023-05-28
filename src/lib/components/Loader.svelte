@@ -1,21 +1,11 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
+	import { beforeUpdate } from 'svelte';
 	import Loader from '../stores/loader';
+	import ScrollHandler from '$lib/services/scrollHandler';
 	import { fade, scale } from 'svelte/transition';
-	import { browser } from '$app/environment';
 
-	onMount(() => {
-		if (browser) {
-			// @ts-ignore
-			document.querySelector('body').style.overflowY = 'hidden';
-		}
-	});
-
-	onDestroy(() => {
-		if (browser) {
-			// @ts-ignore
-			document.querySelector('body').style.overflowY = 'auto';
-		}
+	beforeUpdate(() => {
+		$Loader.isLoading ? ScrollHandler.hideY() : ScrollHandler.showY();
 	});
 </script>
 

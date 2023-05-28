@@ -20,10 +20,12 @@
 	];
 </script>
 
+<CreateClientForm data={data.clientForm} {options} />
+
 <button
 	on:click={() =>
 		Toaster.notify(
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo magnam ea cum enim, quam ullam eos a minus aliquam iusto quae culpa sunt debitis dolores?',
+			'O client <b>paulo alexandre fernandes ribeiro</b> foi criado com sucesso',
 			CancelIcon
 		)}>open toaster</button
 >
@@ -38,5 +40,3 @@
 			title: 'title'
 		})}>test alert</button
 >
-
-<CreateClientForm data={data.clientForm} {options} />

@@ -5,48 +5,133 @@ interface Toast {
 	isOpen: boolean;
 	message: string;
 	icon?: any;
+	_timeout: NodeJS.Timeout | null;
 }
 
 interface Toaster {
-	toasts: Toast[];
+	toasts: Map<string, Toast>;
+	recentToast?: Toast;
+	oldestToast?: Toast;
 }
 
 function createToasterStore() {
 	const { subscribe, update } = writable<Toaster>({
-		// isOpen: false,
-		// message: 'Loading'
-		toasts: []
+		recentToast: undefined,
+		oldestToast: undefined,
+		toasts: new Map()
 	});
 
-	// const set = (isOpen: boolean, message: string) => {
-	// 	update(() => ({ isOpen, message }));
-	// };
+	const _getOldestToast = (toasts: Map<string, Toast>) => {
+		const [toast] = toasts.values();
 
-	// const reset = () => {
-	// 	update(() => ({ isOpen: false, message: '' }));
-	// };
+		return toast;
+	};
 
-	// const setMessage = (message: string) => {
-	// 	update((state) => ({ ...state, message }));
-	// };
+	const _getRecentToast = (toasts: Map<string, Toast>) => {
+		const toast = Array.from(toasts)[toasts.size - 1];
 
-	// const setIsOpen = (isOpen: boolean) => {
-	// 	update((state) => ({ ...state, isOpen }));
-	// };
+		return toast ? toast[1] : undefined;
+	};
 
-	const notify = (message: string, icon?: any) => {
-		const id = `${Date.now()}-${Math.random()}`;
+	const notify = (message: string, icon?: any, shouldTimeout = true) => {
+		update((state) => {
+			const id = `${Date.now()}-${Math.random()}`;
+			const toast = {
+				id,
+				message,
+				icon,
+				isOpen: true,
+				_timeout: shouldTimeout ? setTimeout(() => remove(id), 5000) : null
+			};
 
-		update((state) => ({ toasts: [...state.toasts, { isOpen: true, message, id, icon }] }));
+			state.toasts.set(id, toast);
+			state.recentToast = _getRecentToast(state.toasts);
+			state.oldestToast = _getOldestToast(state.toasts);
+
+			return state;
+		});
+	};
+
+	const remove = (toastId: string) => {
+		update((state) => {
+			state.toasts.delete(toastId);
+
+			state.oldestToast = _getOldestToast(state.toasts);
+			state.recentToast = _getRecentToast(state.toasts);
+
+			return state;
+		});
+	};
+
+	const removeTimer = (toastId: string) => {
+		update((state) => {
+			const toast = state.toasts.get(toastId);
+
+			if (!toast) return state;
+
+			toast._timeout && clearTimeout(toast._timeout);
+
+			return state;
+		});
+	};
+
+	const addTimer = (toastId?: string) => {
+		if (!toastId) return;
+
+		update((state) => {
+			const toast = state.toasts.get(toastId);
+
+			if (!toast) return state;
+
+			toast._timeout = setTimeout(() => remove(toastId), 3000);
+
+			return state;
+		});
+	};
+
+	const removeTimerFromAll = () => {
+		update((state) => {
+			state.toasts.forEach((toast) => removeTimer(toast.id));
+
+			return state;
+		});
+	};
+
+	const addTimerToAll = (timeout = 1500) => {
+		update((state) => {
+			// This makes it so all the toasts get removed at the same time
+			let additionalTimeout = 0;
+
+			state.toasts.forEach((toast) => {
+				toast._timeout = setTimeout(() => remove(toast.id), timeout + additionalTimeout);
+
+				additionalTimeout += 550;
+			});
+
+			return state;
+		});
+	};
+
+	const clearAll = () => {
+		update((state) => {
+			state.toasts.clear();
+
+			state.oldestToast = undefined;
+			state.recentToast = undefined;
+
+			return state;
+		});
 	};
 
 	return {
 		subscribe,
-		notify
-		// setIsOpen,
-		// setMessage,
-		// set,
-		// reset
+		notify,
+		remove,
+		removeTimer,
+		addTimer,
+		removeTimerFromAll,
+		addTimerToAll,
+		clearAll
 	};
 }
 
