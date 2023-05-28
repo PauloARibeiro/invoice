@@ -7,7 +7,7 @@
 	export let errors: string[] | undefined = undefined;
 	export let value = '';
 
-	import { ChevronDownIcon, ChevronUpIcon } from 'svelte-feather-icons';
+	import ChevronUpDown from '../Icons/filled/ChevronUpDown.svelte';
 
 	import Error from './_Error.svelte';
 	import Label from './_Label.svelte';
@@ -23,12 +23,7 @@
 			{/each}
 		</select>
 		<div class="icons">
-			<div class="icon">
-				<ChevronUpIcon size="18" strokeWidth={1.4} />
-			</div>
-			<div class="icon">
-				<ChevronDownIcon class="icon" size="18" strokeWidth={1.4} />
-			</div>
+			<ChevronUpDown size="18" />
 		</div>
 	</div>
 	<Error {errors} />
@@ -48,7 +43,7 @@
 
 	.icons {
 		position: absolute;
-		right: 0;
+		right: 0.9rem;
 		bottom: 0;
 		height: 100%;
 		background-color: transparent;
@@ -59,22 +54,5 @@
 		flex-direction: column;
 		cursor: pointer;
 		pointer-events: none;
-
-		.icon {
-			position: absolute;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-direction: column;
-			right: 0.9rem;
-
-			&:nth-child(1) {
-				top: 0.3rem;
-			}
-
-			&:nth-child(2) {
-				bottom: 0.3rem;
-			}
-		}
 	}
 </style>

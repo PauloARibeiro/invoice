@@ -15,7 +15,7 @@
 </script>
 
 <button style={inlineStyle} {type} {disabled} on:click={onClick} class={style}>
-	<svelte:component this={icon} size="20" strokeWidth={1.4} />
+	<svelte:component this={icon} size="18" color="var(--c-white)" />
 	<span>
 		<slot />
 	</span>

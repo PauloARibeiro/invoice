@@ -2,7 +2,7 @@
 	import { Modals, closeModal } from 'svelte-modals';
 	import Loader from '$lib/components/Loader.svelte';
 	import Alert from '$lib/components/Alert.svelte';
-	import Toaster from '$lib/components/Toaster.svelte';
+	import Toaster from '$lib/components/Toaster/Toaster.svelte';
 </script>
 
 <div style="padding: 2rem;">

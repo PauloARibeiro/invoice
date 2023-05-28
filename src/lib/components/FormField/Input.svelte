@@ -9,11 +9,11 @@
 	export let disabled = false;
 
 	import { scale } from 'svelte/transition';
-	import { XCircleIcon } from 'svelte-feather-icons';
 
 	import Error from './_Error.svelte';
 	import Label from './_Label.svelte';
 	import Wrapper from './_Wrapper.svelte';
+	import DismissCircle from '../Icons/filled/DismissCircle.svelte';
 
 	let isFocused = false;
 
@@ -63,7 +63,8 @@
 				on:click={resetValue}
 				transition:scale={{ duration: 200, start: 0 }}
 			>
-				<XCircleIcon size="20" strokeWidth={1.4} />
+				<!-- <XCircleIcon size="20" strokeWidth={1.4} /> -->
+				<DismissCircle size="20" />
 			</button>
 		{/if}
 	</div>

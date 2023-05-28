@@ -1,14 +1,14 @@
 <script lang="ts">
 	export let errors: string[] | undefined = undefined;
 
-	import { AlertCircleIcon } from 'svelte-feather-icons';
+	import ErrorCircle from '../Icons/filled/ErrorCircle.svelte';
 </script>
 
 <div>
 	{#if errors}
 		{#each errors as error}
 			<small>
-				<AlertCircleIcon size="13" strokeWidth={2} />
+				<ErrorCircle size="14" color="var(--c-red)" />
 				{error}
 			</small>
 		{/each}

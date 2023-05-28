@@ -11,7 +11,7 @@
 
 {#if $Loader.isLoading}
 	<section transition:fade={{ duration: 150 }}>
-		<div class="wrapper" transition:scale={{ duration: 300 }}>
+		<div class="wrapper" in:scale={{ duration: 300 }} out:scale={{ duration: 400 }}>
 			<span class="loader" />
 			<h5>{@html $Loader.message ?? 'Loading'}</h5>
 		</div>
@@ -31,6 +31,7 @@
 		flex-direction: column;
 		padding: 2.4rem;
 		backdrop-filter: var(--overlay-blur);
+		-webkit-backdrop-filter: var(--overlay-blur);
 		background-color: rgba(var(--c-black-rgb), 0.2);
 		z-index: 999;
 	}
@@ -38,6 +39,7 @@
 	.wrapper {
 		background-color: rgba(var(--c-black-rgb), 0.3);
 		backdrop-filter: var(--overlay-blur);
+		-webkit-backdrop-filter: var(--overlay-blur);
 		min-width: 18rem;
 		border-radius: 1.4rem;
 		z-index: 1;

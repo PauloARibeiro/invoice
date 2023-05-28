@@ -3,7 +3,7 @@
 	import Alert from '../stores/alert';
 
 	import Button from './Button.svelte';
-	import CancelIcon from './Icons/CancelIcon.svelte';
+	import CancelIcon from './Icons/colored/CancelIcon.svelte';
 
 	function closeModal() {
 		if ($Alert.onCancel) {
@@ -30,9 +30,9 @@
 </script>
 
 {#if $Alert.isOpen}
-	<div class="alert" transition:fade={{ duration: 100 }}>
+	<div class="alert" transition:fade={{ duration: 150 }}>
 		<button class="backdrop" on:click={closeModal} />
-		<main transition:scale={{ duration: 250 }}>
+		<main in:scale={{ duration: 300 }} out:scale={{ duration: 400 }}>
 			<!-- <span>icon vai aqui</span> -->
 			<!-- <CancelIcon /> -->
 			<h5>{$Alert.title}</h5>
@@ -58,7 +58,9 @@
 		flex-direction: column;
 		padding: 2.4rem;
 		backdrop-filter: var(--overlay-blur);
+		-webkit-backdrop-filter: var(--overlay-blur);
 		background-color: rgba(var(--c-black-rgb), 0.2);
+		z-index: 999;
 	}
 
 	.backdrop {

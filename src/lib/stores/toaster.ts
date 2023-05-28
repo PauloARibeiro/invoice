@@ -1,11 +1,12 @@
 import { writable } from 'svelte/store';
 
-interface Toast {
+export interface Toast {
 	id: string;
 	isOpen: boolean;
 	message: string;
 	icon?: any;
 	_timeout: NodeJS.Timeout | null;
+	_shouldTimeout: boolean;
 }
 
 interface Toaster {
@@ -33,7 +34,7 @@ function createToasterStore() {
 		return toast ? toast[1] : undefined;
 	};
 
-	const notify = (message: string, icon?: any, shouldTimeout = true) => {
+	const notify = (message: string, icon?: any, shouldTimeout = false) => {
 		update((state) => {
 			const id = `${Date.now()}-${Math.random()}`;
 			const toast = {
@@ -41,6 +42,7 @@ function createToasterStore() {
 				message,
 				icon,
 				isOpen: true,
+				_shouldTimeout: shouldTimeout,
 				_timeout: shouldTimeout ? setTimeout(() => remove(id), 5000) : null
 			};
 
@@ -67,7 +69,7 @@ function createToasterStore() {
 		update((state) => {
 			const toast = state.toasts.get(toastId);
 
-			if (!toast) return state;
+			if (!toast || (toast && !toast._shouldTimeout)) return state;
 
 			toast._timeout && clearTimeout(toast._timeout);
 
@@ -81,7 +83,7 @@ function createToasterStore() {
 		update((state) => {
 			const toast = state.toasts.get(toastId);
 
-			if (!toast) return state;
+			if (!toast || (toast && !toast._shouldTimeout)) return state;
 
 			toast._timeout = setTimeout(() => remove(toastId), 3000);
 
@@ -103,6 +105,8 @@ function createToasterStore() {
 			let additionalTimeout = 0;
 
 			state.toasts.forEach((toast) => {
+				if (!toast._shouldTimeout) return state;
+
 				toast._timeout = setTimeout(() => remove(toast.id), timeout + additionalTimeout);
 
 				additionalTimeout += 550;

@@ -10,11 +10,12 @@
 	import Select from '$lib/components/FormField/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
 
-	import { XCircleIcon } from 'svelte-feather-icons';
 	import Loader from '$lib/stores/loader';
 	import Alert from '$lib/stores/alert';
 
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import DismissCircle from '$lib/components/Icons/filled/DismissCircle.svelte';
+	import PersonAdd from '$lib/components/Icons/filled/PersonAdd.svelte';
 
 	export let data: Validation<ClientSchemaType>;
 	export let options: any[] = [];
@@ -77,7 +78,7 @@
 		<Button type="reset" style="error">Cancel</Button>
 		<Button icon={XCircleIcon}>Create User</Button>
 		<Button icon={XCircleIcon} style="warning">Create User</Button> -->
-		<Button disabled icon={XCircleIcon}>Create User</Button>
+		<Button icon={PersonAdd}>Create User</Button>
 		<!-- <Button icon={XCircleIcon} {disabled} style="warning">Create User</Button> -->
 	</div>
 </form>

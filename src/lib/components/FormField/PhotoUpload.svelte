@@ -11,7 +11,6 @@
 	import Wrapper from './_Wrapper.svelte';
 
 	import ImageUploadModal from '../Modals/ImageUploadModal.svelte';
-	// import { UserIcon } from 'svelte-feather-icons';
 	import Loader from '../../stores/loader';
 
 	export let onPlaceholderClick: () => void = () => {};

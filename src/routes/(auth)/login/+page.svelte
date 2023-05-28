@@ -3,7 +3,7 @@
 	import Loader from '$lib/stores/loader';
 	import Toaster from '$lib/stores/toaster';
 
-	import CancelIcon from '$lib/components/icons/CancelIcon.svelte';
+	import CancelIcon from '$lib/components/Icons/colored/CancelIcon.svelte';
 
 	function testAlert() {
 		Alert.set({

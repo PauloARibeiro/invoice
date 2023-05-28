@@ -4,7 +4,7 @@
 
 	import Toaster from '$lib/stores/toaster';
 	import Alert from '$lib/stores/alert';
-	import CancelIcon from '$lib/components/Icons/CancelIcon.svelte';
+	import CancelIcon from '$lib/components/Icons/colored/CancelIcon.svelte';
 
 	export let data: PageData;
 
