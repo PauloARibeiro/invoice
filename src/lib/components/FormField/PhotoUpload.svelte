@@ -1,61 +1,61 @@
 <script lang="ts">
-	export let id = '';
-	export let label = '';
+	// export let id = '';
+	// export let label = '';
 	export let errors: string[] | undefined = undefined;
-	export let value: any = undefined;
+	// export let value: any = undefined;
 
-	import { openModal } from 'svelte-modals';
+	// import { openModal } from 'svelte-modals';
 
 	import Error from './_Error.svelte';
 	// import Label from './_Label.svelte';
 	import Wrapper from './_Wrapper.svelte';
 
-	import ImageUploadModal from '../Modals/ImageUploadModal.svelte';
-	import Loader from '../../stores/loader';
+	// import ImageUploadModal from '../Modals/ImageUploadModal.svelte';
+	// import Loader from '$lib/stores/Loader';
 
-	export let onPlaceholderClick: () => void = () => {};
+	export let onPlaceholderClick: () => void;
 
-	let file: File | null = null;
+	// let file: File | null = null;
 	let croppedImgSrc: string | undefined;
-	let inputRef: HTMLInputElement | undefined;
+	// let inputRef: HTMLInputElement | undefined;
 
-	function onFileSelected(e: any) {
-		if (!e.target.files[0].type.startsWith('image/')) return;
+	// function onFileSelected(e: any) {
+	// 	if (!e.target.files[0].type.startsWith('image/')) return;
 
-		file = e.target.files[0];
+	// 	file = e.target.files[0];
 
-		openEditModal();
-	}
+	// 	openEditModal();
+	// }
 
-	function openEditModal() {
-		if (!file) return;
+	// function openEditModal() {
+	// 	if (!file) return;
 
-		const reader = new FileReader();
+	// 	const reader = new FileReader();
 
-		Loader.set(true, 'Uploading...');
+	// 	Loader.set(true, 'Uploading...');
 
-		reader.onload = (e) => {
-			if (!file || !e.target) return;
+	// 	reader.onload = (e) => {
+	// 		if (!file || !e.target) return;
 
-			openModal(ImageUploadModal, {
-				imageSrc: e.target.result as string,
-				onConfirm
-			});
+	// 		openModal(ImageUploadModal, {
+	// 			imageSrc: e.target.result as string,
+	// 			onConfirm
+	// 		});
 
-			Loader.reset();
-		};
+	// 		Loader.reset();
+	// 	};
 
-		reader.readAsDataURL(file);
-	}
+	// 	reader.readAsDataURL(file);
+	// }
 
-	function onConfirm(canvas: any | undefined) {
-		// canvas?.toBlob((blob) => {
-		// 	value = blob;
-		// });
+	// function onConfirm(canvas: any | undefined) {
+	// 	// canvas?.toBlob((blob) => {
+	// 	// 	value = blob;
+	// 	// });
 
-		croppedImgSrc = canvas;
-		// croppedImgSrc = canvas?.toDataURL();
-	}
+	// 	croppedImgSrc = canvas;
+	// 	// croppedImgSrc = canvas?.toDataURL();
+	// }
 
 	function triggerFileInput() {
 		onPlaceholderClick();
@@ -79,7 +79,7 @@
 			</div>
 		</main>
 
-		<input bind:this={inputRef} hidden type="file" name={id} {id} on:change={onFileSelected} />
+		<!-- <input bind:this={inputRef} hidden type="file" name={id} {id} on:change={onFileSelected} /> -->
 	</section>
 	<Error {errors} />
 </Wrapper>

@@ -1,9 +1,9 @@
-import type { Actions, PageServerLoad } from './$types';
+import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
-import { randomUUID } from 'crypto';
+// import { randomUUID } from 'crypto';
 import { hashSync } from 'bcryptjs';
-import UserDB from '$lib/db/user';
-import CookieService from '$lib/services/cookie';
+import UserDB from '$lib/db/User';
+import CookieService from '$lib/services/Cookie';
 
 // export const load: PageServerLoad = async ({ locals }) => {
 // 	const session = await locals.validate();

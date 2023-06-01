@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let size: string = '24';
-	export let color: string = 'var(--c-black)';
+	export let size = '24';
+	export let color = 'var(--c-black)';
 </script>
 
 <svg width={size} height={size} fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"

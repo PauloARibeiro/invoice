@@ -1,8 +1,8 @@
-import CookieEnum from '$lib/enums/cookie';
+import CookieEnum from '$lib/enums/Cookie';
 import jsonwebtoken from 'jsonwebtoken';
 import type { RequestEvent } from '@sveltejs/kit';
 import { JWT_ACCESS_KEY } from '$env/static/private';
-import UserDB from '$lib/db/user';
+import UserDB from '$lib/db/User';
 
 interface JWTPayload {
 	id: string;

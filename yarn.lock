@@ -1588,6 +1588,11 @@ svelte-eslint-parser@^0.27.0:
     eslint-visitor-keys "^3.0.0"
     espree "^9.0.0"
 
+svelte-gestures@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/svelte-gestures/-/svelte-gestures-1.5.2.tgz#41a919650426c6688a78f2300ed827470c0d0870"
+  integrity sha512-bXGFqpNAAYCM4XsxjaHMAoPQC3IRjrgGS+Sm/pE1ZftYu9gGRWvDF8g6cwl2b751R2kN1SwNEd6XV7zVh9mcew==
+
 svelte-hmr@^0.15.1:
   version "0.15.1"
   resolved "https://registry.npmjs.org/svelte-hmr/-/svelte-hmr-0.15.1.tgz"

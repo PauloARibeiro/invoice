@@ -1,11 +1,13 @@
 <script lang="ts">
 	export let type: 'button' | 'submit' | 'reset' = 'submit';
 	export let style: 'primary' | 'cancel' | 'error' | 'warning' = 'primary';
-	export let fullWidth: boolean = false;
-	export let disabled: boolean = false;
-	export let onClick: (event: MouseEvent) => void = () => {};
+	export let fullWidth = false;
+	export let disabled = false;
+	export let onClick: ((event: MouseEvent) => void) | undefined = undefined;
 
-	export let icon: ConstructorOfATypedSvelteComponent | undefined = undefined;
+	import type { ComponentType, SvelteComponentTyped } from 'svelte';
+
+	export let icon: ComponentType<SvelteComponentTyped> | undefined = undefined;
 
 	function getWidth() {
 		return fullWidth ? 'width: 100%;' : '';

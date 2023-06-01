@@ -1,8 +1,8 @@
 import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { compareSync } from 'bcryptjs';
-import UserDB from '$lib/db/user';
-import CookieService from '$lib/services/cookie';
+import UserDB from '$lib/db/User';
+import CookieService from '$lib/services/Cookie';
 
 export const actions: Actions = {
 	default: async ({ cookies, request }) => {

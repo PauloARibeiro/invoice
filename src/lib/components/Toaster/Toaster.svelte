@@ -1,37 +1,58 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
-	import { fly, scale, fade } from 'svelte/transition';
+	import { fly, scale } from 'svelte/transition';
 
-	import Toaster from '../../stores/toaster';
+	// import Toaster from '../../stores/Toaster';
+	import Toaster from '$lib/stores/Toaster';
 	import Toast from './_Toast.svelte';
 
-	import Button from '../Button.svelte';
+	// import Button from '../Button.svelte';
+
+	import type { OnToastCloseProps } from '$lib/types/OnToastCloseProps';
+	import Direction from '$lib/enums/Direction';
 
 	// prevent weird gitch that makes toast stop mid animation
 	let isToastClosing = false;
-	let wasSwiped = false;
+	let onToastCloseProps: OnToastCloseProps = {
+		id: ''
+	};
 
 	function tostCloseAnimation(node: Element) {
-		return wasSwiped ? fly(node, { duration: 400, x: 400 }) : scale(node, { duration: 400 });
+		const { dragged, swiped } = onToastCloseProps;
+
+		if (dragged?.direction === Direction.RIGHT || swiped?.direction === Direction.RIGHT) {
+			return fly(node, { duration: 400, x: 400 });
+		}
+
+		if (dragged?.direction === Direction.LEFT || swiped?.direction === Direction.LEFT) {
+			return fly(node, { duration: 1200, x: 800 });
+		}
+
+		return scale(node, { duration: 400 });
 	}
 
-	function onCloseToast(id: string, wasSwipedArg: boolean) {
-		wasSwiped = wasSwipedArg;
+	function onCloseToast(props: OnToastCloseProps) {
+		onToastCloseProps = props;
+
 		isToastClosing = true;
 
-		Toaster.remove(id);
+		Toaster.remove(props.id);
 
-		setTimeout(() => {
-			isToastClosing = false;
-			wasSwiped = false;
-		}, 540);
+		setTimeout(resetAfterClose, 540);
+	}
+
+	function resetAfterClose() {
+		onToastCloseProps.dragged = undefined;
+		onToastCloseProps.swiped = undefined;
+
+		isToastClosing = false;
 	}
 </script>
 
 <div
-	class="toaster"
 	on:mouseenter={() => !isToastClosing && Toaster.removeTimerFromAll()}
 	on:mouseleave={() => !isToastClosing && Toaster.addTimerToAll()}
+	class="toaster"
 >
 	<!-- <div class="clear-all">
 		{#if $Toaster.toasts.size > 1}
@@ -55,7 +76,7 @@
 		</button> -->
 	<!-- {:else} -->
 
-	{#each Array.from($Toaster.toasts) as [id, toast], index (id)}
+	{#each Array.from($Toaster.toasts) as [id, toast] (id)}
 		<div
 			animate:flip={{ duration: 300, delay: 200 }}
 			in:fly={{ x: 400, duration: 300 }}

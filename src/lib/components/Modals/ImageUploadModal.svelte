@@ -1,23 +1,23 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { closeModal } from 'svelte-modals';
-	import { getCroppedImg } from './cropper';
+	// import { getCroppedImg } from './cropper';
 
 	// import Cropper from 'cropperjs';
 	// import Cropper from 'svelte-easy-crop';
-	import Loader from '../../stores/loader';
+	import Loader from '../../stores/Loader';
 	// import type CropperType from 'cropperjs';
 
 	// provided by Modals
 	export let isOpen: boolean;
 	export let imageSrc: string;
-	export let onConfirm: (canvas: any | undefined) => void;
+	// export let onConfirm: (canvas: any | undefined) => void;
 
 	// let cropper: CropperType | null = null;
 	// let cropper: CropperType | null = null;
 	let imageEle: HTMLImageElement | null = null;
 
-	let pixelCrop: any;
+	// let pixelCrop: any;
 
 	onMount(() => {
 		if (!imageEle) return;
@@ -67,16 +67,16 @@
 
 		Loader.set(true, 'Cropping...');
 
-		const croppedImg = await getCroppedImg(imageSrc, pixelCrop);
+		// const croppedImg = await getCroppedImg(imageSrc, pixelCrop);
 
-		onConfirm(croppedImg);
+		// onConfirm(croppedImg);
 
 		Loader.reset();
 	}
 
-	function previewCrop(e: any) {
-		pixelCrop = e.detail.pixels;
-	}
+	// function previewCrop(e: any) {
+	// 	pixelCrop = e.detail.pixels;
+	// }
 </script>
 
 {#if isOpen}

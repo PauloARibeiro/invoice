@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-export default function authCheck(locals: any) {
+export default function authCheck(locals: App.Locals) {
 	console.log('Ran Layout Auth Check');
 
 	if (!locals.user) {

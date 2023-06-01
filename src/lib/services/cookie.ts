@@ -2,7 +2,7 @@ import type { Cookies } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import { JWT_ACCESS_KEY, JWT_REFRESH_KEY } from '$env/static/private';
 import jsonwebtoken from 'jsonwebtoken';
-import CookieEnum from '$lib/enums/cookie';
+import CookieEnum from '$lib/enums/Cookie';
 
 function storeAuthenticationCookies(cookies: Cookies, userId: string) {
 	const accessToken = jsonwebtoken.sign({ id: userId }, JWT_ACCESS_KEY, {

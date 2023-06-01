@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import ClientSchema from '$lib/schemas/client';
-import avatarGenerator from '$lib/services/avatarGenerator';
+import avatarGenerator from '$lib/services/AvatarGenerator';
 
 export const load: PageServerLoad = async ({ parent }) => {
 	await parent();

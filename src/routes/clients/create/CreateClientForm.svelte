@@ -10,11 +10,11 @@
 	import Select from '$lib/components/FormField/Select.svelte';
 	import Button from '$lib/components/Button.svelte';
 
-	import Loader from '$lib/stores/loader';
-	import Alert from '$lib/stores/alert';
+	import Loader from '$lib/stores/Loader';
+	import Alert from '$lib/stores/Alert';
 
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-	import DismissCircle from '$lib/components/Icons/filled/DismissCircle.svelte';
+	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	// import DismissCircle from '$lib/components/Icons/filled/DismissCircle.svelte';
 	import PersonAdd from '$lib/components/Icons/filled/PersonAdd.svelte';
 
 	export let data: Validation<ClientSchemaType>;
@@ -28,7 +28,7 @@
 		Loader.set(state, `Creating new client <b>"${$form.firstName}"</b>`);
 	});
 
-	let disabled = false;
+	// let disabled = false;
 
 	function onPlaceholderClick() {
 		Alert.set({
@@ -42,7 +42,7 @@
 </script>
 
 <form method="POST" use:enhance>
-	<PhotoUpload {onPlaceholderClick} id="photo" label="Photo" value={$form.photo} />
+	<PhotoUpload {onPlaceholderClick} />
 
 	<Input
 		type="text"

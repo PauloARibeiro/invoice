@@ -1,9 +1,14 @@
 <script lang="ts">
+	interface Option {
+		value: string;
+		label: string;
+	}
+
 	export let id = '';
 	export let label = '';
-	export let options: any[] = [];
-	export let optionValueProp: string = 'value';
-	export let optionLabelProp: string = 'label';
+	export let options: Option[] = [];
+	export let optionValueProp: keyof Option = 'value';
+	export let optionLabelProp: keyof Option = 'label';
 	export let errors: string[] | undefined = undefined;
 	export let value = '';
 

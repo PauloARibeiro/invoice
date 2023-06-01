@@ -1,7 +1,7 @@
 <script>
 	import { beforeUpdate } from 'svelte';
-	import Loader from '../stores/loader';
-	import ScrollHandler from '$lib/services/scrollHandler';
+	import Loader from '$lib/stores/Loader';
+	import ScrollHandler from '$lib/services/ScrollHandler';
 	import { fade, scale } from 'svelte/transition';
 
 	beforeUpdate(() => {

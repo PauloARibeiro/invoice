@@ -1,10 +1,13 @@
 import { writable } from 'svelte/store';
+import type { ComponentType, SvelteComponentTyped } from 'svelte';
+
+type Icon = ComponentType<SvelteComponentTyped>;
 
 export interface Toast {
 	id: string;
 	isOpen: boolean;
 	message: string;
-	icon?: any;
+	icon?: Icon;
 	_timeout: NodeJS.Timeout | null;
 	_shouldTimeout: boolean;
 }
@@ -34,7 +37,7 @@ function createToasterStore() {
 		return toast ? toast[1] : undefined;
 	};
 
-	const notify = (message: string, icon?: any, shouldTimeout = false) => {
+	const notify = (message: string, icon?: Icon, shouldTimeout = false) => {
 		update((state) => {
 			const id = `${Date.now()}-${Math.random()}`;
 			const toast = {

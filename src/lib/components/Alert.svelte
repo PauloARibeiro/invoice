@@ -1,9 +1,8 @@
 <script>
 	import { fade, scale } from 'svelte/transition';
-	import Alert from '../stores/alert';
+	import Alert from '$lib/stores/Alert';
 
 	import Button from './Button.svelte';
-	import CancelIcon from './Icons/colored/CancelIcon.svelte';
 
 	function closeModal() {
 		if ($Alert.onCancel) {
@@ -19,8 +18,6 @@
 		if ($Alert.onConfirm) {
 			$Alert.onConfirm();
 		}
-
-		console.log($Alert);
 
 		if ($Alert.closeOnConfirm) {
 			console.log('what ?');

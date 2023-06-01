@@ -2,8 +2,8 @@
 	import type { PageData } from './$types';
 	import CreateClientForm from './CreateClientForm.svelte';
 
-	import Toaster from '$lib/stores/toaster';
-	import Alert from '$lib/stores/alert';
+	import Toaster from '$lib/stores/Toaster';
+	import Alert from '$lib/stores/Alert';
 	import CancelIcon from '$lib/components/Icons/colored/CancelIcon.svelte';
 
 	export let data: PageData;
@@ -22,13 +22,7 @@
 
 <CreateClientForm data={data.clientForm} {options} />
 
-<button
-	on:click={() =>
-		Toaster.notify(
-			'O client <b>paulo alexandre fernandes ribeiro</b> foi criado com sucesso',
-			CancelIcon
-		)}>open toaster</button
->
+<button on:click={() => Toaster.notify('clienet <b>created</b>', CancelIcon)}>open toaster</button>
 
 <button on:click={() => Toaster.notify('Client foi criado', CancelIcon)}>open toaster</button>
 

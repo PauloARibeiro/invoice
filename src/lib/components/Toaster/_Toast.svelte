@@ -4,42 +4,84 @@
 	import { expoOut } from 'svelte/easing';
 
 	import { draggable } from '@neodrag/svelte';
+	import { swipe } from 'svelte-gestures';
+
+	import Direction from '$lib/enums/Direction';
 
 	import DismissCircle from '../Icons/filled/DismissCircle.svelte';
 
-	import type { Toast } from '$lib/stores/toaster';
+	import type { Toast } from '$lib/stores/Toaster';
 	import type { DragEventData } from '@neodrag/svelte';
+	import type { OnToastCloseProps } from '$lib/types/OnToastCloseProps';
+
+	export let toast: Toast;
+	export let onCloseToast: (onCloseProps: OnToastCloseProps) => void;
+
+	const VALUE_DRAG_TO_REMOVE =
+		browser && window.matchMedia('(max-width: 600px)').matches ? 150 : 220;
+
+	const LEFT_DRAG_OFFSET_MAX = -30;
+
+	const IS_TOUCH_DEVICE = 'ontouchstart' in window;
 
 	let dragPosition = tweened({ x: 0, y: 0 }, { easing: expoOut, duration: 1200 });
 
-	export let toast: Toast;
-	export let onCloseToast: (id: string, wasSwiped: boolean) => void;
+	function onSwipe(
+		event: CustomEvent<{
+			direction: 'left' | 'top' | 'right' | 'bottom';
+			target: EventTarget;
+		}>
+	) {
+		if (!IS_TOUCH_DEVICE) {
+			return;
+		}
 
-	const valueDragToRemove = browser && window.matchMedia('(max-width: 600px)').matches ? 150 : 200;
+		return triggerClose(true, event.detail.direction as Direction);
+	}
 
 	function onDrag({ offsetX, offsetY }: DragEventData) {
-		if (offsetX < 0) {
-			offsetX = 0;
+		if (offsetX < LEFT_DRAG_OFFSET_MAX) {
+			offsetX = LEFT_DRAG_OFFSET_MAX;
 		}
 
 		dragPosition.set({ x: offsetX, y: offsetY }, { duration: 0 });
 	}
 
 	function onDragEnd({ offsetX }: DragEventData) {
-		if (offsetX > valueDragToRemove) {
-			return onCloseToast(toast.id, true);
+		if (IS_TOUCH_DEVICE) {
+			$dragPosition = { x: 0, y: 0 };
+			return;
+		}
+
+		if (offsetX > VALUE_DRAG_TO_REMOVE) {
+			return triggerClose(false, Direction.RIGHT);
+		}
+
+		if (offsetX <= LEFT_DRAG_OFFSET_MAX) {
+			return triggerClose(false, Direction.LEFT);
 		}
 
 		$dragPosition = { x: 0, y: 0 };
 	}
 
+	function triggerClose(wasSwiped: boolean, direction: Direction) {
+		const key = wasSwiped ? 'swiped' : 'dragged';
+
+		return onCloseToast({
+			id: toast.id,
+			[key]: { direction }
+		});
+	}
+
 	function onCloseClick() {
-		onCloseToast(toast.id, false);
+		onCloseToast({ id: toast.id });
 	}
 </script>
 
 <button
 	class="toast"
+	on:swipe={onSwipe}
+	use:swipe={{ timeframe: 500, minSwipeDistance: 100 }}
 	use:draggable={{
 		axis: 'x',
 		bounds: { right: -400, left: 0 },
